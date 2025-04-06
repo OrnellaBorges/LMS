@@ -40,11 +40,11 @@ POST http://localhost:3002/newLeaveRequest2
 Content-Type: application/json
 
 {
-  "employeeId": 83,
-  "fullName": "Jean Paul Rouve",
-  "managerId": 22,
-  "startDate": "2025-05-12",
-  "endDate": "2025-05-18",
+  "employeeId": 107,
+  "fullName": "Robert Martin",
+  "managerId": 11,
+  "startDate": "2026-06-12",
+  "endDate": "2027-05-18",
   "comment": "Vacances"
 }
 
@@ -62,6 +62,6 @@ Content-Type: application/json
 ###
 
 ### ❌ Supprimer une demande de congé
-DELETE http://localhost:3002/leaveRequests/{leaveRequestId}
+DELETE http://localhost:3002/delLeaveRequests/6
 
 ###

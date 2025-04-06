@@ -88,7 +88,7 @@ app.get("/", (req, res) => {
   res.send("Bienvenue sur ton backend 🎉");
 });
 
-app.get("/table", (req, res) => {
+/* app.get("/table", (req, res) => {
   // Créer la table si elle n'existe pas
   db.run(`
     CREATE TABLE IF NOT EXISTS leaveRequests (
@@ -110,6 +110,7 @@ app.get("/table", (req, res) => {
     }
   });
 });
+ */
 
 // Get all leave requests
 app.get("/leaveRequests", (req, res) => {
@@ -158,9 +159,11 @@ app.post("/newLeaveRequest", (req, res) => {
 app.post("/newLeaveRequest2", (req, res) => {
   console.log("Requête reçue :", req.body);
   const { employeeId, fullName, managerId, startDate, endDate, comment } = req.body;
-  db.run("INSERT INTO leaveRequests(employeeId, fullName, managerId, startDate, endDate, comment) VALUES (?, ?, ?, ?, ?, ?)", [employeeId, fullName, managerId, startDate, endDate, comment], (err) => {
+
+  const sql ="INSERT INTO leaveRequests(employeeId, fullName, managerId, startDate, endDate, comment) VALUES (?, ?, ?, ?, ?, ?)"
+  
+  db.run(sql, [employeeId, fullName, managerId, startDate, endDate, comment], (err) => {
     if (err) {
-      console.log(err);
       res.status(500).send("Error inserting data into the database.");
     } else {
       res.send("OK, request successful!");
@@ -191,7 +194,34 @@ app.patch("/leaveRequests/:id", (req, res) => {
 });
 
 // Route pour supprimer une demande de congé
-app.delete("/leaveRequests/:id", (req, res) => {
+app.delete("/delLeaveRequests/:id", (req, res) => {
+  const { id } = req.params;
+
+  // Vérifier si la demande existe
+  const checkSql = "SELECT * FROM leaveRequests WHERE id = ?";
+  db.get(checkSql, [id], (err, row) => {
+    if (err) {
+      return res.status(500).json({ error: "Erreur lors de la vérification." });
+    }
+
+    if (!row) {
+      return res.status(404).json({ error: "Demande non trouvée." });
+    }
+
+    // Si elle existe, on la supprime
+    const deleteSql = "DELETE FROM leaveRequests WHERE id = ?";
+    db.run(deleteSql, [id], (err) => {
+      if (err) {
+        return res.status(500).json({ error: "Erreur lors de la suppression." });
+      }
+
+      res.status(200).json({ message: "Demande supprimée", id });
+    });
+  });
+});
+
+// Route pour supprimer une demande de congé
+/* app.delete("/leaveRequests/:id", (req, res) => {
   const { id } = req.params;
 
   const index = leaveRequests.findIndex((req) => req.id === id);
@@ -201,7 +231,7 @@ app.delete("/leaveRequests/:id", (req, res) => {
 
   const deleted = leaveRequests.splice(index, 1);
   res.status(200).json({ message: "Demande supprimée", deleted });
-});
+}); */
 
 // Démarrer le serveur
 app.listen(port, () => {
