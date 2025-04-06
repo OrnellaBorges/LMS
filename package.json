@@ -3,19 +3,20 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node-dev ./src/index.ts"
+    "build": "tsc",
+    "start": "npm run build && node ./dist/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "trainig backend project leave management system",
+  "description": "training backend project leave management system",
   "devDependencies": {
     "@types/express": "^5.0.1",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "ts-node-dev": "^2.0.0",
+    "ts-node": "^10.9.2"
   },
   "dependencies": {
-    "express": "^5.1.0",
-    "ts-node-dev": "^2.0.0"
+    "express": "^5.1.0"
   }
 }
