@@ -1,3 +1,67 @@
+### 🔍 Vérifier que le serveur fonctionne
 GET http://localhost:3002/
-###
+
+###Creer table
+GET http://localhost:3002/table
+
+
+### 📋 Voir toutes les demandes de congé
 GET http://localhost:3002/leaveRequests
+
+### 📋 Voir toutes les demandes de congé
+GET http://localhost:3002/leaveRequests2
+###
+
+### 👥 Voir tous les employés
+GET http://localhost:3002/allEmployees
+
+###
+
+### 🧑‍💼 Voir tous les managers
+GET http://localhost:3002/allManagers
+
+###
+
+### 📝 Créer une nouvelle demande de congé
+POST http://localhost:3002/newLeaveRequest
+Content-Type: application/json
+
+{
+  "employeeId": "e1",
+  "managersId": "m1",
+  "startDate": "2025-05-10",
+  "endDate": "2025-05-15",
+  "comment": "Voyage à l'étranger"
+}
+
+
+### 📝 Créer une nouvelle demande de congé
+POST http://localhost:3002/newLeaveRequest2
+Content-Type: application/json
+
+{
+  "employeeId": 83,
+  "fullName": "Jean Paul Rouve",
+  "managerId": 22,
+  "startDate": "2025-05-12",
+  "endDate": "2025-05-18",
+  "comment": "Vacances"
+}
+
+
+### ✏️ Mettre à jour une demande de congé (ex: dates ou commentaire)
+PATCH http://localhost:3002/leaveRequests/1
+Content-Type: application/json
+
+{
+  "startDate": "2042-05-12",
+  "endDate": "2052-05-18",
+  "comment": "Changement de dates pour raisons familiales"
+}
+
+###
+
+### ❌ Supprimer une demande de congé
+DELETE http://localhost:3002/leaveRequests/{leaveRequestId}
+
+###
